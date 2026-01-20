@@ -1,6 +1,7 @@
 import React from "react";
 import { DynamicVisualization } from "./components/DynamicVisualization";
 import { PlatformOverviewImage } from "./components/PlatformOverviewImage";
+import { InfrastructureDiagram } from "./components/InfrastructureDiagram";
 import { ParticlesBackground } from "./components/ParticlesBackground";
 import { ScrollReveal } from "./components/ScrollReveal";
 
@@ -620,11 +621,11 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Platform Overview Image - ENHANCED: Added scroll reveal and alternating background */}
+      {/* Infrastructure Diagram - BRANDING: Replaced image with interactive SVG, Blockvis → Blockdesk */}
       <section className="py-14 md:py-20 bg-slate-50" id="platform-overview-image">
         <Container>
           <ScrollReveal>
-            <PlatformOverviewImage />
+            <InfrastructureDiagram />
           </ScrollReveal>
         </Container>
       </section>
