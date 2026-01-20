@@ -16,6 +16,7 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
   const errorMessage = getErrorMessage(error);
   const isRetryable = isRetryableError(error);
   const isApiError = isApiErrorResponse(error);
+  const apiError = isApiError ? (error as ApiErrorResponse) : null;
 
   return (
     <div
@@ -38,15 +39,13 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
         </div>
         <div className="ml-3 flex-1">
           <h3 className="text-sm font-medium text-red-800">
-            {isApiError && error.details.title
-              ? error.details.title
-              : 'Error'}
+            {apiError?.details.title || 'Error'}
           </h3>
           <div className="mt-2 text-sm text-red-700">
             <p>{errorMessage}</p>
-            {isApiError && error.error && (
+            {apiError?.error && (
               <p className="mt-1 text-xs text-red-600">
-                Error Code: {error.error}
+                Error Code: {apiError.error}
               </p>
             )}
           </div>
