@@ -543,25 +543,26 @@ export default function BlockdeskLanding() {
               </a>
             </nav>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - ENHANCED: More visible and touch-friendly */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="md:hidden p-2.5 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition-colors touch-manipulation"
               aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
             >
-              <svg className="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Dropdown - ENHANCED: Better visibility and animation */}
           {mobileMenuOpen && (
-            <nav className="md:hidden border-t border-slate-200 bg-white py-4 space-y-2">
+            <nav className="md:hidden border-t border-slate-200 bg-white py-4 space-y-2 animate-in slide-in-from-top-2">
               <a
                 href="#what"
                 onClick={() => setMobileMenuOpen(false)}
