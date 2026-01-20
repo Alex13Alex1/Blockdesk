@@ -18,8 +18,9 @@ import { ScrollReveal } from "./components/ScrollReveal";
  * - Tailwind classes (if Tailwind подключен — будет красиво; если нет — всё равно отрендерится)
  */
 
+// ENHANCED: Improved mobile padding
 function Container({ children }: { children: React.ReactNode }) {
-  return <div className="mx-auto w-full max-w-6xl px-5 md:px-8">{children}</div>;
+  return <div className="mx-auto w-full max-w-6xl px-4 sm:px-5 md:px-8">{children}</div>;
 }
 
 function Pill({ children }: { children: React.ReactNode }) {
@@ -500,33 +501,37 @@ function VisualStatus() {
 /* -------------------- Page -------------------- */
 
 export default function BlockdeskLanding() {
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900">
-      {/* Header */}
+      {/* Header - ENHANCED: Mobile responsive with hamburger menu */}
       <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/70 backdrop-blur">
         <Container>
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="grid h-9 w-9 place-items-center rounded-xl bg-slate-900 text-white shadow-sm">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-xl bg-slate-900 text-white shadow-sm text-xs sm:text-sm font-semibold">
                 BD
               </div>
-              <div className="leading-tight">
-                <div className="text-sm font-semibold">Blockdesk</div>
-                <div className="text-xs text-slate-500">MiCA-native OTC & settlement infrastructure</div>
+              <div className="leading-tight hidden sm:block">
+                <div className="text-xs sm:text-sm font-semibold">Blockdesk</div>
+                <div className="text-[10px] sm:text-xs text-slate-500">MiCA-native OTC & settlement infrastructure</div>
               </div>
+              <div className="text-sm font-semibold sm:hidden">Blockdesk</div>
             </div>
 
-            <nav className="hidden items-center gap-6 md:flex">
-              <a href="#what" className="text-sm text-slate-600 hover:text-slate-900">
+            {/* Desktop Navigation */}
+            <nav className="hidden items-center gap-4 lg:gap-6 md:flex">
+              <a href="#what" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                 What
               </a>
-              <a href="#how" className="text-sm text-slate-600 hover:text-slate-900">
+              <a href="#how" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                 How it works
               </a>
-              <a href="#fiat" className="text-sm text-slate-600 hover:text-slate-900">
+              <a href="#fiat" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                 Fiat layer
               </a>
-              <a href="#partners" className="text-sm text-slate-600 hover:text-slate-900">
+              <a href="#partners" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
                 Partners
               </a>
               {/* ENHANCED: Outline button to avoid header overload */}
@@ -537,83 +542,140 @@ export default function BlockdeskLanding() {
                 Request access
               </a>
             </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <svg className="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {mobileMenuOpen && (
+            <nav className="md:hidden border-t border-slate-200 bg-white py-4 space-y-2">
+              <a
+                href="#what"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+              >
+                What
+              </a>
+              <a
+                href="#how"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+              >
+                How it works
+              </a>
+              <a
+                href="#fiat"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+              >
+                Fiat layer
+              </a>
+              <a
+                href="#partners"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+              >
+                Partners
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block mx-4 mt-4 rounded-xl border border-slate-300 bg-transparent px-4 py-2.5 text-sm font-semibold text-slate-700 text-center hover:bg-slate-50 transition-all duration-300"
+              >
+                Request access
+              </a>
+            </nav>
+          )}
         </Container>
       </header>
 
-      {/* Hero - ENHANCED: Added dark background with particles and gradient title */}
-      <section className="relative pt-14 md:pt-20 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+      {/* Hero - ENHANCED: Mobile optimized with better spacing */}
+      <section className="relative pt-8 sm:pt-12 md:pt-20 pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
         <ParticlesBackground />
         <Container>
-          <div className="grid gap-10 md:grid-cols-2 md:items-center relative z-10">
+          <div className="grid gap-8 sm:gap-10 md:grid-cols-2 md:items-center relative z-10">
             <ScrollReveal>
-              <div className="space-y-6">
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   <Pill>Europe</Pill>
                   <Pill>MiCA-native</Pill>
                   <Pill>Institutional OTC</Pill>
                   <Pill>Fiat Settlement</Pill>
                 </div>
 
-                {/* ENHANCED: Added gradient to title */}
-                {/* ENHANCED: Premium three-color gradient with improved letter-spacing */}
-                <h1 className="text-3xl font-semibold tracking-tight md:text-5xl text-gradient" style={{ letterSpacing: '-0.03em' }}>
+                {/* ENHANCED: Mobile-optimized typography with responsive sizing */}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gradient leading-tight" style={{ letterSpacing: '-0.02em' }}>
                   The regulated execution & settlement stack for institutional crypto flows in Europe.
                 </h1>
 
-                <p className="max-w-xl text-base leading-relaxed text-slate-300 md:text-lg">
+                <p className="max-w-xl text-sm sm:text-base leading-relaxed text-slate-300 md:text-lg">
                   Blockdesk is building a MiCA-native OTC and crypto–fiat settlement platform for banks, PSPs, fintechs,
                   brokers, exchanges, and institutional treasuries — with predictable execution, auditable reporting, and
                   fiat rails designed as a first-class layer of the ecosystem.
                 </p>
 
+                {/* ENHANCED: Touch-friendly buttons for mobile */}
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <a
                     href="#contact"
-                    className="inline-flex items-center justify-center rounded-xl bg-green-500 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-green-600 transition-all duration-300 glow-green-soft"
+                    className="inline-flex items-center justify-center rounded-xl bg-green-500 px-5 py-3.5 sm:py-3 text-sm font-semibold text-white shadow-lg hover:bg-green-600 active:bg-green-700 transition-all duration-300 glow-green-soft touch-manipulation"
                   >
                     Start a strategic conversation
                   </a>
-                  {/* ENHANCED: Fully transparent secondary button with thin border */}
                   <a
                     href="#how"
-                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/30 transition-all duration-300"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-transparent px-5 py-3.5 sm:py-3 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/30 active:bg-white/10 transition-all duration-300 touch-manipulation"
                   >
                     See how it works
                   </a>
                 </div>
 
-                {/* ENHANCED: Status badge with floating pulse animation */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 backdrop-blur-sm float-pulse">
-                  <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
-                    <div className="relative w-2 h-2 rounded-full bg-green-500 glow-pulse"></div>
+                {/* ENHANCED: Mobile-optimized status badges */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 sm:px-4 py-2 backdrop-blur-sm float-pulse">
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
+                      <div className="relative w-2 h-2 rounded-full bg-green-500 glow-pulse"></div>
+                    </div>
+                    <span className="text-xs font-medium text-green-400 whitespace-nowrap">14 Active Clients</span>
                   </div>
-                  <span className="text-xs font-medium text-green-400">14 Active Institutional Clients Integrated</span>
+
+                  {/* ENHANCED: MiCA Compliance indicator - mobile friendly */}
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg border border-green-500/20 bg-green-500/5 px-2.5 sm:px-3 py-1.5 backdrop-blur-sm flex-wrap">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                      <span className="text-xs font-medium text-green-400">MiCA:</span>
+                    </div>
+                    <span className="text-xs text-slate-300">Phase 1</span>
+                    <span className="text-xs text-slate-500">/</span>
+                    <span className="text-xs text-slate-400">Phase 2 Ready</span>
+                  </div>
                 </div>
 
-                {/* ENHANCED: MiCA Compliance indicator */}
-                <div className="inline-flex items-center gap-2 rounded-lg border border-green-500/20 bg-green-500/5 px-3 py-1.5 backdrop-blur-sm">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                    <span className="text-xs font-medium text-green-400">MiCA Compliance:</span>
-                  </div>
-                  <span className="text-xs text-slate-300">Phase 1 Active</span>
-                  <span className="text-xs text-slate-500">/</span>
-                  <span className="text-xs text-slate-400">Phase 2 Ready</span>
-                </div>
-
-                <p className="text-xs text-slate-400">
+                <p className="text-xs sm:text-sm text-slate-400">
                   Built as infrastructure (non-directional, volume-driven) — not a retail trading product.
                 </p>
               </div>
 
-              <div>
-                {/* ENHANCED: Glassmorphism card */}
-                <div className="rounded-2xl glassmorphism-dark border border-green-500/20 p-6 shadow-lg">
+              <div className="mt-6 md:mt-0">
+                {/* ENHANCED: Mobile-optimized glassmorphism card */}
+                <div className="rounded-2xl glassmorphism-dark border border-green-500/20 p-4 sm:p-6 shadow-lg">
                   <div className="space-y-3">
                     <div className="text-sm font-semibold text-white">At a glance</div>
-                    <div className="grid gap-3 md:grid-cols-2">
+                    <div className="grid gap-3 sm:grid-cols-2">
                       {[
                         ["OTC RFQ Execution", "Self-service RFQ workflow for institutional size."],
                         ["Institutional Liquidity", "Aggregated LPs and counterparty optimization."],
@@ -638,8 +700,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Infrastructure Diagram - BRANDING: Replaced image with interactive SVG, Blockvis → Blockdesk */}
-      <section className="py-14 md:py-20 bg-slate-50" id="platform-overview-image">
+      {/* Infrastructure Diagram - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="platform-overview-image">
         <Container>
           <ScrollReveal>
             <InfrastructureDiagram />
@@ -647,8 +709,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Dynamic Visualization from Backend - ENHANCED: Added scroll reveal */}
-      <section className="py-14 md:py-20" id="overview">
+      {/* Dynamic Visualization from Backend - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20" id="overview">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -663,8 +725,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Context - ENHANCED: Alternating background */}
-      <section className="py-14 md:py-20 bg-slate-50" id="context">
+      {/* Context - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="context">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -679,8 +741,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* What - ENHANCED: Added scroll reveal */}
-      <section className="py-14 md:py-20" id="what">
+      {/* What - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20" id="what">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -695,8 +757,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Fiat Layer - ENHANCED: Alternating background */}
-      <section className="py-14 md:py-20 bg-slate-50" id="fiat">
+      {/* Fiat Layer - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="fiat">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -741,8 +803,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Execution Intelligence - ENHANCED: Added scroll reveal */}
-      <section className="py-14 md:py-20" id="how">
+      {/* Execution Intelligence - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20" id="how">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -757,8 +819,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Partners - ENHANCED: Alternating background */}
-      <section className="py-14 md:py-20 bg-slate-50" id="partners">
+      {/* Partners - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="partners">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -773,8 +835,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Current Milestone - ENHANCED: Extracted from diagram with icons */}
-      <section className="py-14 md:py-20 bg-slate-50" id="milestones">
+      {/* Current Milestone - ENHANCED: Mobile optimized spacing and grid */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="milestones">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -784,7 +846,8 @@ export default function BlockdeskLanding() {
             />
           </ScrollReveal>
           <ScrollReveal delay={100}>
-            <div className="mt-6 grid gap-4 md:grid-cols-4">
+            {/* ENHANCED: Mobile-optimized grid (1 column on mobile, 2 on tablet, 4 on desktop) */}
+            <div className="mt-6 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 { 
                   icon: "⚙️", 
@@ -813,7 +876,7 @@ export default function BlockdeskLanding() {
               ].map((milestone, i) => (
                 <div
                   key={i}
-                  className={`group rounded-2xl glassmorphism-premium bg-white/60 backdrop-blur-xl p-6 border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+                  className={`group rounded-2xl glassmorphism-premium bg-white/60 backdrop-blur-xl p-4 sm:p-6 border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
                     milestone.status === 'completed' 
                       ? 'border-green-500/30 bg-green-50/30' 
                       : milestone.status === 'active'
@@ -821,9 +884,9 @@ export default function BlockdeskLanding() {
                       : 'border-slate-200/50'
                   }`}
                 >
-                  <div className="mb-3 text-3xl">{milestone.icon}</div>
-                  <div className="text-sm font-bold text-slate-900 mb-2">{milestone.title}</div>
-                  <div className="text-xs text-slate-600 mb-3">{milestone.desc}</div>
+                  <div className="mb-2 sm:mb-3 text-2xl sm:text-3xl">{milestone.icon}</div>
+                  <div className="text-sm font-bold text-slate-900 mb-1.5 sm:mb-2">{milestone.title}</div>
+                  <div className="text-xs text-slate-600 mb-2 sm:mb-3 leading-relaxed">{milestone.desc}</div>
                   <div className="flex items-center gap-2">
                     {milestone.status === 'completed' && (
                       <>
@@ -851,8 +914,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Status - ENHANCED: Added scroll reveal */}
-      <section className="py-14 md:py-20" id="status">
+      {/* Status - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="status">
         <Container>
           <ScrollReveal>
             <SectionTitle
@@ -867,8 +930,8 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* CTA - ENHANCED: Green accent button and scroll reveal */}
-      <section className="pb-20 bg-slate-50" id="contact">
+      {/* CTA - ENHANCED: Mobile optimized spacing */}
+      <section className="py-8 sm:py-12 md:pb-20 bg-slate-50" id="contact">
         <Container>
           <ScrollReveal>
             <div className="rounded-3xl border border-slate-200 bg-slate-900 p-8 text-white shadow-sm md:p-10">
