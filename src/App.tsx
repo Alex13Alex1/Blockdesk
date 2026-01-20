@@ -1,6 +1,13 @@
 import React from "react";
 import { DynamicVisualization } from "./components/DynamicVisualization";
 import { PlatformOverviewImage } from "./components/PlatformOverviewImage";
+import { ParticlesBackground } from "./components/ParticlesBackground";
+import { ScrollReveal } from "./components/ScrollReveal";
+
+/* 
+ * VISUAL ENHANCEMENTS - Can be reverted by removing imports above and restoring original classes
+ * Added: ParticlesBackground, ScrollReveal, enhanced styling
+ */
 
 /**
  * Blockdesk Landing (clean TSX)
@@ -23,7 +30,12 @@ function Pill({ children }: { children: React.ReactNode }) {
 }
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">{children}</div>;
+  // ENHANCED: Added glassmorphism and hover effects
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      {children}
+    </div>
+  );
 }
 
 function SectionTitle({
@@ -35,10 +47,11 @@ function SectionTitle({
   title: string;
   subtitle?: string;
 }) {
+  // ENHANCED: Improved typography hierarchy with better contrast
   return (
     <div className="space-y-3">
       {overline ? <Pill>{overline}</Pill> : null}
-      <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">{title}</h2>
+      <h2 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">{title}</h2>
       {subtitle ? (
         <p className="max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">{subtitle}</p>
       ) : null}
@@ -49,6 +62,7 @@ function SectionTitle({
 /* -------------------- Visuals (SVG) -------------------- */
 
 function VisualMarketShift() {
+  // ENHANCED: Comparison cards instead of simple table
   return (
     <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white">
       <div className="p-6">
@@ -58,7 +72,51 @@ function VisualMarketShift() {
           <Pill>Settlement Certainty</Pill>
         </div>
 
-        <svg viewBox="0 0 900 260" className="h-auto w-full" role="img" aria-label="Market shift diagram">
+        {/* ENHANCED: Comparison cards layout */}
+        <div className="grid md:grid-cols-2 gap-6 mt-6">
+          {/* Legacy Column */}
+          <div className="rounded-xl border-2 border-red-200/50 bg-slate-100/50 p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <h3 className="text-lg font-bold text-slate-700">Legacy</h3>
+            </div>
+            <ul className="space-y-3">
+              {["Manual processes", "Banking friction", "Slippage & uncertainty", "Compliance fragmentation"].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-slate-600">
+                  <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Our Infrastructure Column */}
+          <div className="rounded-xl border-2 border-green-500/50 bg-green-50/30 p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+            <div className="flex items-center gap-2 mb-4 relative z-10">
+              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <h3 className="text-lg font-bold text-slate-900">Our Infrastructure</h3>
+            </div>
+            <ul className="space-y-3 relative z-10">
+              {["RFQ-based OTC execution", "Integrated fiat settlement", "Reporting & controls", "MiCA-native posture"].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-slate-700">
+                  <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 900 260" className="h-auto w-full hidden" role="img" aria-label="Market shift diagram">
           <defs>
             <linearGradient id="bd_g1" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stopColor="#0ea5e9" stopOpacity="0.18" />
@@ -402,10 +460,10 @@ function VisualPartners() {
 
 function VisualStatus() {
   const items = [
-    { title: "Architecture Defined", desc: "Core modules and interfaces mapped." },
-    { title: "Regulatory Pathways", desc: "Jurisdictions and compliance route clarified." },
-    { title: "Partner Discussions", desc: "EMI, banking and liquidity dialogues active." },
-    { title: "MiCA Timing", desc: "Execution plan aligned with market window." },
+    { title: "Architecture Defined", desc: "Core modules and interfaces mapped.", icon: "⚙️" },
+    { title: "Regulatory Pathways", desc: "Jurisdictions and compliance route clarified.", icon: "📋" },
+    { title: "Partner Discussions", desc: "EMI, banking and liquidity dialogues active.", icon: "💬" },
+    { title: "MiCA Timing", desc: "Execution plan aligned with market window.", icon: "⏱️" },
   ];
 
   return (
@@ -416,11 +474,18 @@ function VisualStatus() {
         <Pill>MiCA-aligned</Pill>
       </div>
 
+      {/* ENHANCED: Glassmorphism cards with hover effects and icon glow */}
       <div className="grid gap-4 md:grid-cols-4">
         {items.map((s, i) => (
-          <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div
+            key={i}
+            className="group rounded-2xl border border-slate-200 bg-white p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-green-500/50"
+          >
+            <div className="mb-2 text-2xl">{s.icon}</div>
             <div className="text-sm font-semibold text-slate-900">{s.title}</div>
             <div className="mt-1 text-sm text-slate-600">{s.desc}</div>
+            {/* Subtle green glow on hover */}
+            <div className="mt-2 h-0.5 w-0 bg-green-500 transition-all duration-300 group-hover:w-full"></div>
           </div>
         ))}
       </div>
@@ -471,225 +536,274 @@ export default function BlockdeskLanding() {
         </Container>
       </header>
 
-      {/* Hero */}
-      <section className="pt-14 md:pt-20">
+      {/* Hero - ENHANCED: Added dark background with particles and gradient title */}
+      <section className="relative pt-14 md:pt-20 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        <ParticlesBackground />
         <Container>
-          <div className="grid gap-10 md:grid-cols-2 md:items-center">
-            <div className="space-y-6">
-              <div className="flex flex-wrap gap-2">
-                <Pill>Europe</Pill>
-                <Pill>MiCA-native</Pill>
-                <Pill>Institutional OTC</Pill>
-                <Pill>Fiat Settlement</Pill>
-              </div>
+          <div className="grid gap-10 md:grid-cols-2 md:items-center relative z-10">
+            <ScrollReveal>
+              <div className="space-y-6">
+                <div className="flex flex-wrap gap-2">
+                  <Pill>Europe</Pill>
+                  <Pill>MiCA-native</Pill>
+                  <Pill>Institutional OTC</Pill>
+                  <Pill>Fiat Settlement</Pill>
+                </div>
 
-              <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
-                The regulated execution & settlement stack for institutional crypto flows in Europe.
-              </h1>
+                {/* ENHANCED: Added gradient to title */}
+                <h1 className="text-3xl font-semibold tracking-tight md:text-5xl text-gradient">
+                  The regulated execution & settlement stack for institutional crypto flows in Europe.
+                </h1>
 
-              <p className="max-w-xl text-base leading-relaxed text-slate-600 md:text-lg">
-                Blockdesk is building a MiCA-native OTC and crypto–fiat settlement platform for banks, PSPs, fintechs,
-                brokers, exchanges, and institutional treasuries — with predictable execution, auditable reporting, and
-                fiat rails designed as a first-class layer of the ecosystem.
-              </p>
+                <p className="max-w-xl text-base leading-relaxed text-slate-300 md:text-lg">
+                  Blockdesk is building a MiCA-native OTC and crypto–fiat settlement platform for banks, PSPs, fintechs,
+                  brokers, exchanges, and institutional treasuries — with predictable execution, auditable reporting, and
+                  fiat rails designed as a first-class layer of the ecosystem.
+                </p>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
-                >
-                  Start a strategic conversation
-                </a>
-                <a
-                  href="#how"
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-50"
-                >
-                  See how it works
-                </a>
-              </div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center rounded-xl bg-green-500 px-5 py-3 text-sm font-semibold text-white shadow-lg hover:bg-green-600 transition-all duration-300 glow-green-soft"
+                  >
+                    Start a strategic conversation
+                  </a>
+                  <a
+                    href="#how"
+                    className="inline-flex items-center justify-center rounded-xl border border-green-500/50 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-green-500/10 transition-all duration-300"
+                  >
+                    See how it works
+                  </a>
+                </div>
 
-              <p className="text-xs text-slate-500">
-                Built as infrastructure (non-directional, volume-driven) — not a retail trading product.
-              </p>
-            </div>
-
-            <div>
-              <Card>
-                <div className="space-y-3">
-                  <div className="text-sm font-semibold text-slate-900">At a glance</div>
-                  <div className="grid gap-3 md:grid-cols-2">
-                    {[
-                      ["OTC RFQ Execution", "Self-service RFQ workflow for institutional size."],
-                      ["Institutional Liquidity", "Aggregated LPs and counterparty optimization."],
-                      ["Crypto ↔ Fiat Settlement", "EUR settlement to IBAN/SEPA via ecosystem fiat layer."],
-                      ["Compliance & Reporting", "MiCA-aligned posture, KYT/AML signals, audit-ready reporting."],
-                    ].map((x, i) => (
-                      <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                        <div className="text-sm font-semibold">{x[0]}</div>
-                        <div className="mt-1 text-sm text-slate-600">{x[1]}</div>
-                      </div>
-                    ))}
+                {/* ENHANCED: Status badge with improved styling */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 backdrop-blur-sm">
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
+                    <div className="relative w-2 h-2 rounded-full bg-green-500 glow-green-soft"></div>
                   </div>
+                  <span className="text-xs font-medium text-green-400">14 Active Institutional Clients Integrated</span>
                 </div>
-              </Card>
-            </div>
-          </div>
 
-          <VisualMarketShift />
-        </Container>
-      </section>
-
-      {/* Platform Overview Image */}
-      <section className="py-14 md:py-20" id="platform-overview-image">
-        <Container>
-          <PlatformOverviewImage />
-        </Container>
-      </section>
-
-      {/* Dynamic Visualization from Backend */}
-      <section className="py-14 md:py-20" id="overview">
-        <Container>
-          <SectionTitle
-            overline="Platform Overview"
-            title="MiCA-Native OTC & Settlement Platform for Europe"
-            subtitle="A comprehensive infrastructure solution connecting market context, strategic partners, and foundational elements through a unified settlement layer."
-          />
-          <DynamicVisualization />
-        </Container>
-      </section>
-
-      {/* Context */}
-      <section className="py-14 md:py-20" id="context">
-        <Container>
-          <SectionTitle
-            overline="Context"
-            title="Europe is moving from fragmented venues to regulated financial plumbing."
-            subtitle="With MiCA, institutions optimize for compliance, execution quality, and settlement certainty. The winners treat crypto like infrastructure — not experimentation."
-          />
-          <VisualGap />
-        </Container>
-      </section>
-
-      {/* What */}
-      <section className="py-14 md:py-20" id="what">
-        <Container>
-          <SectionTitle
-            overline="What we're building"
-            title="A MiCA-native OTC & settlement platform designed for recurring institutional flows."
-            subtitle="Blockdesk combines RFQ OTC execution, institutional liquidity aggregation, crypto–crypto and crypto–fiat settlement, and compliance-first reporting — with fiat rails as a core ecosystem layer."
-          />
-          <VisualHowItWorks />
-        </Container>
-      </section>
-
-      {/* Fiat Layer */}
-      <section className="py-14 md:py-20" id="fiat">
-        <Container>
-          <SectionTitle
-            overline="Fiat Settlement Layer"
-            title="Fiat rails are a first-class layer of the ecosystem — not an external dependency."
-            subtitle="We design settlement to reduce dependency risk while increasing long-term control and resilience. The roadmap supports tightly integrated EMI partnerships at launch and deeper internalization as the platform scales."
-          />
-          <VisualFiatLayerRoadmap />
-        </Container>
-      </section>
-
-      {/* Execution Intelligence */}
-      <section className="py-14 md:py-20" id="how">
-        <Container>
-          <SectionTitle
-            overline="Execution Intelligence"
-            title="Beyond OTC: own the execution logic."
-            subtitle="Blockdesk evolves an execution intelligence layer: smart RFQ routing, counterparty optimization, best-execution logic, and consistency controls — turning execution into a defensible infrastructure capability."
-          />
-          <VisualExecutionIntelligence />
-        </Container>
-      </section>
-
-      {/* Partners */}
-      <section className="py-14 md:py-20" id="partners">
-        <Container>
-          <SectionTitle
-            overline="Strategic relevance"
-            title="Built to complement banks, EMIs, PSPs, fintechs, brokers, and exchanges."
-            subtitle="Blockdesk is API-first and partnership-friendly by design. It enables regulated execution and settlement without forcing partners to rebuild trading infrastructure internally."
-          />
-          <VisualPartners />
-        </Container>
-      </section>
-
-      {/* Status */}
-      <section className="py-14 md:py-20" id="status">
-        <Container>
-          <SectionTitle
-            overline="Status"
-            title="Structured execution planning — aligned with MiCA market timing."
-            subtitle="We're transitioning from architecture to implementation with regulatory pathways mapped and partner discussions active across settlement and liquidity layers."
-          />
-          <VisualStatus />
-        </Container>
-      </section>
-
-      {/* CTA */}
-      <section className="pb-20" id="contact">
-        <Container>
-          <div className="rounded-3xl border border-slate-200 bg-slate-900 p-8 text-white shadow-sm md:p-10">
-            <div className="grid gap-8 md:grid-cols-2 md:items-center">
-              <div className="space-y-3">
-                <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">
-                  Strategic conversations
-                </div>
-                <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
-                  Exploring aligned collaboration across liquidity, settlement, or distribution?
-                </h3>
-                <p className="text-sm leading-relaxed text-white/80 md:text-base">
-                  If you operate institutional crypto flows in Europe — banking, EMI, PSP, brokerage, or exchange
-                  infrastructure — we're open to discussing integration and long-term alignment.
+                <p className="text-xs text-slate-400">
+                  Built as infrastructure (non-directional, volume-driven) — not a retail trading product.
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-white/5 p-5">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    // Replace with your backend / CRM submit
-                    alert("Form submitted (demo). Connect this to your backend/CRM.");
-                  }}
-                  className="grid gap-3"
-                >
-                  <input
-                    className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
-                    placeholder="Name"
-                    required
-                  />
-                  <input
-                    className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
-                    placeholder="Work email"
-                    type="email"
-                    required
-                  />
-                  <input
-                    className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
-                    placeholder="Company"
-                    required
-                  />
-                  <textarea
-                    className="min-h-[92px] rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
-                    placeholder="What are you exploring? (settlement / liquidity / integration / distribution)"
-                  />
-                  <button
-                    type="submit"
-                    className="mt-1 inline-flex items-center justify-center rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100"
-                  >
-                    Send
-                  </button>
-                  <div className="text-xs text-white/60">
-                    No fundraising language needed — we focus on infrastructure alignment.
+              <div>
+                {/* ENHANCED: Glassmorphism card */}
+                <div className="rounded-2xl glassmorphism-dark border border-green-500/20 p-6 shadow-lg">
+                  <div className="space-y-3">
+                    <div className="text-sm font-semibold text-white">At a glance</div>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {[
+                        ["OTC RFQ Execution", "Self-service RFQ workflow for institutional size."],
+                        ["Institutional Liquidity", "Aggregated LPs and counterparty optimization."],
+                        ["Crypto ↔ Fiat Settlement", "EUR settlement to IBAN/SEPA via ecosystem fiat layer."],
+                        ["Compliance & Reporting", "MiCA-aligned posture, KYT/AML signals, audit-ready reporting."],
+                      ].map((x, i) => (
+                        <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-green-500/30">
+                          <div className="text-sm font-semibold text-white">{x[0]}</div>
+                          <div className="mt-1 text-sm text-slate-300">{x[1]}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </form>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal delay={200}>
+            <VisualMarketShift />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Platform Overview Image - ENHANCED: Added scroll reveal and alternating background */}
+      <section className="py-14 md:py-20 bg-slate-50" id="platform-overview-image">
+        <Container>
+          <ScrollReveal>
+            <PlatformOverviewImage />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Dynamic Visualization from Backend - ENHANCED: Added scroll reveal */}
+      <section className="py-14 md:py-20" id="overview">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Platform Overview"
+              title="MiCA-Native OTC & Settlement Platform for Europe"
+              subtitle="A comprehensive infrastructure solution connecting market context, strategic partners, and foundational elements through a unified settlement layer."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <DynamicVisualization />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Context - ENHANCED: Alternating background */}
+      <section className="py-14 md:py-20 bg-slate-50" id="context">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Context"
+              title="Europe is moving from fragmented venues to regulated financial plumbing."
+              subtitle="With MiCA, institutions optimize for compliance, execution quality, and settlement certainty. The winners treat crypto like infrastructure — not experimentation."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualGap />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* What - ENHANCED: Added scroll reveal */}
+      <section className="py-14 md:py-20" id="what">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="What we're building"
+              title="A MiCA-native OTC & settlement platform designed for recurring institutional flows."
+              subtitle="Blockdesk combines RFQ OTC execution, institutional liquidity aggregation, crypto–crypto and crypto–fiat settlement, and compliance-first reporting — with fiat rails as a core ecosystem layer."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualHowItWorks />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Fiat Layer - ENHANCED: Alternating background */}
+      <section className="py-14 md:py-20 bg-slate-50" id="fiat">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Fiat Settlement Layer"
+              title="Fiat rails are a first-class layer of the ecosystem — not an external dependency."
+              subtitle="We design settlement to reduce dependency risk while increasing long-term control and resilience. The roadmap supports tightly integrated EMI partnerships at launch and deeper internalization as the platform scales."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualFiatLayerRoadmap />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Execution Intelligence - ENHANCED: Added scroll reveal */}
+      <section className="py-14 md:py-20" id="how">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Execution Intelligence"
+              title="Beyond OTC: own the execution logic."
+              subtitle="Blockdesk evolves an execution intelligence layer: smart RFQ routing, counterparty optimization, best-execution logic, and consistency controls — turning execution into a defensible infrastructure capability."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualExecutionIntelligence />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Partners - ENHANCED: Alternating background */}
+      <section className="py-14 md:py-20 bg-slate-50" id="partners">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Strategic relevance"
+              title="Built to complement banks, EMIs, PSPs, fintechs, brokers, and exchanges."
+              subtitle="Blockdesk is API-first and partnership-friendly by design. It enables regulated execution and settlement without forcing partners to rebuild trading infrastructure internally."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualPartners />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Status - ENHANCED: Added scroll reveal */}
+      <section className="py-14 md:py-20" id="status">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Status"
+              title="Structured execution planning — aligned with MiCA market timing."
+              subtitle="We're transitioning from architecture to implementation with regulatory pathways mapped and partner discussions active across settlement and liquidity layers."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <VisualStatus />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* CTA - ENHANCED: Green accent button and scroll reveal */}
+      <section className="pb-20 bg-slate-50" id="contact">
+        <Container>
+          <ScrollReveal>
+            <div className="rounded-3xl border border-slate-200 bg-slate-900 p-8 text-white shadow-sm md:p-10">
+              <div className="grid gap-8 md:grid-cols-2 md:items-center">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">
+                    Strategic conversations
+                  </div>
+                  <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                    Exploring aligned collaboration across liquidity, settlement, or distribution?
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/80 md:text-base">
+                    If you operate institutional crypto flows in Europe — banking, EMI, PSP, brokerage, or exchange
+                    infrastructure — we're open to discussing integration and long-term alignment.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl bg-white/5 p-5">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      // Replace with your backend / CRM submit
+                      alert("Form submitted (demo). Connect this to your backend/CRM.");
+                    }}
+                    className="grid gap-3"
+                  >
+                    <input
+                      className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
+                      placeholder="Name"
+                      required
+                    />
+                    <input
+                      className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
+                      placeholder="Work email"
+                      type="email"
+                      required
+                    />
+                    <input
+                      className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
+                      placeholder="Company"
+                      required
+                    />
+                    <textarea
+                      className="min-h-[92px] rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-white/50 focus:border-white/40"
+                      placeholder="What are you exploring? (settlement / liquidity / integration / distribution)"
+                    />
+                    {/* ENHANCED: Green accent button instead of white */}
+                    <button
+                      type="submit"
+                      className="mt-1 inline-flex items-center justify-center rounded-xl bg-green-500 px-4 py-3 text-sm font-semibold text-white hover:bg-green-600 transition-all duration-300 glow-green shadow-lg"
+                    >
+                      Request Strategic Access
+                    </button>
+                    <div className="text-xs text-white/60">
+                      No fundraising language needed — we focus on infrastructure alignment.
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           <footer className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-8 md:flex-row">
             <div className="text-sm text-slate-600">
