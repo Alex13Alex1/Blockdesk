@@ -312,6 +312,100 @@ function VisualHowItWorks() {
   );
 }
 
+// ENHANCED: Active Clients Traction Component
+function ActiveClientsTraction({ count = 14 }) {
+  return (
+    <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-slate-900/80 backdrop-blur-sm border border-emerald-500/20 glow-green-soft">
+      <div className="relative">
+        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 live-indicator"></div>
+      </div>
+      <span className="text-sm font-semibold text-white">
+        <span className="text-emerald-400">{count}</span> Active Institutional Clients
+      </span>
+      <span className="text-xs text-slate-400">currently utilizing the gateway</span>
+    </div>
+  );
+}
+
+// ENHANCED: API Visualization Component
+function APIVisualization() {
+  return (
+    <div className="h-full rounded-2xl bg-slate-900/90 p-6 border border-slate-700/50 overflow-hidden">
+      <div className="flex items-center gap-2 mb-4">
+        <div className="w-2 h-2 rounded-full bg-red-500"></div>
+        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+        <span className="text-xs text-slate-400 ml-2">api.blockdesk.io</span>
+      </div>
+      <div className="space-y-3 font-mono text-xs">
+        <div className="text-slate-400">
+          <span className="text-purple-400">POST</span> <span className="text-emerald-400">/v1/settlement/create</span>
+        </div>
+        <div className="text-slate-300 pl-4">
+          <div className="text-slate-500">{`{`}</div>
+          <div className="pl-4 text-slate-300">
+            <span className="text-blue-400">"amount"</span>: <span className="text-emerald-400">"1000000.00"</span>,
+          </div>
+          <div className="pl-4 text-slate-300">
+            <span className="text-blue-400">"currency"</span>: <span className="text-emerald-400">"EUR"</span>,
+          </div>
+          <div className="pl-4 text-slate-300">
+            <span className="text-blue-400">"destination"</span>: <span className="text-emerald-400">"IBAN:..."</span>,
+          </div>
+          <div className="text-slate-500">{`}`}</div>
+        </div>
+        <div className="pt-2 border-t border-slate-700/50">
+          <div className="text-slate-400">
+            <span className="text-cyan-400">Response:</span> <span className="text-emerald-400">200 OK</span>
+          </div>
+          <div className="text-slate-500 text-[10px] mt-1">Settlement ID: tx_abc123...</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ENHANCED: Dashboard Preview Component
+function DashboardPreview() {
+  return (
+    <div className="h-full rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 p-6 border border-slate-700/50 overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.1),transparent_70%)]"></div>
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-sm font-semibold text-white">Settlement Dashboard</div>
+          <div className="flex gap-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+            <span className="text-xs text-emerald-400">Live</span>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {[
+            { label: "EUR Volume (24h)", value: "€12.4M", trend: "+8.2%" },
+            { label: "Active Settlements", value: "47", trend: "Real-time" },
+            { label: "Avg. Settlement Time", value: "2.3s", trend: "↓ 15%" },
+          ].map((metric, i) => (
+            <div key={i} className="bg-slate-800/50 rounded-lg p-3 border border-slate-700/30">
+              <div className="text-xs text-slate-400 mb-1">{metric.label}</div>
+              <div className="flex items-baseline justify-between">
+                <div className="text-lg font-bold text-white">{metric.value}</div>
+                <div className="text-xs text-emerald-400">{metric.trend}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 pt-4 border-t border-slate-700/50">
+          <div className="flex items-center gap-2 text-xs text-slate-400">
+            <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            Bank-level encryption standards
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function VisualFiatLayerRoadmap() {
   const phases = [
     { x: 140, title: "Phase 1 — Launch", sub: "Tightly-coupled EMI partnership" },
@@ -758,47 +852,132 @@ export default function BlockdeskLanding() {
         </Container>
       </section>
 
-      {/* Fiat Layer - ENHANCED: Mobile optimized spacing */}
-      <section className="py-8 sm:py-12 md:py-20 bg-slate-50" id="fiat">
+      {/* Fiat Layer - ENHANCED: Enterprise-Grade Fiat Infrastructure with Bento Grid */}
+      <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" id="fiat">
         <Container>
           <ScrollReveal>
-            <SectionTitle
-              overline="Fiat Settlement Layer"
-              title="Fiat rails are a first-class layer of the ecosystem — not an external dependency."
-              subtitle="We design settlement to reduce dependency risk while increasing long-term control and resilience. The roadmap supports tightly integrated EMI partnerships at launch and deeper internalization as the platform scales."
-            />
-          </ScrollReveal>
-          <ScrollReveal delay={100}>
-            <VisualFiatLayerRoadmap />
+            <div className="text-center mb-8">
+              <div className="inline-block mb-4">
+                <Pill className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">Enterprise-Grade Fiat Infrastructure</Pill>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+                Secure, compliant, and high-throughput gateways for global capital movement.
+              </h2>
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-6">
+                Built for scale. Fully regulated-ready framework with automated AML/KYC integration.
+              </p>
+              {/* ENHANCED: Active Clients Traction */}
+              <div className="flex justify-center mb-8">
+                <ActiveClientsTraction count={14} />
+              </div>
+            </div>
           </ScrollReveal>
 
-          {/* ENHANCED: EMI Partners showcase */}
-          <ScrollReveal delay={200}>
-            <div className="mt-8 rounded-2xl glassmorphism-premium bg-white/60 backdrop-blur-xl p-8 border border-white/20">
-              <div className="mb-4 flex items-center gap-2">
-                <div className="w-1 h-6 bg-green-500 rounded-full"></div>
-                <h3 className="text-lg font-bold text-slate-900">EMI Partnership Infrastructure</h3>
-              </div>
-              <p className="text-sm text-slate-600 mb-6">
-                Real banking rails through strategic EMI partnerships, ensuring compliant fiat settlement across Europe.
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  { name: "Licensed EMI", type: "EU Authorized", status: "Active" },
-                  { name: "SEPA Integration", type: "Direct Rails", status: "Active" },
-                  { name: "IBAN Settlement", type: "Bank-Grade", status: "Active" },
-                  { name: "Compliance Layer", type: "MiCA-Aligned", status: "Ready" },
-                ].map((partner, i) => (
-                  <div key={i} className="rounded-xl border border-slate-200/50 bg-white/40 p-4 backdrop-blur-sm hover:bg-white/60 transition-all duration-300">
-                    <div className="text-sm font-semibold text-slate-900">{partner.name}</div>
-                    <div className="text-xs text-slate-600 mt-1">{partner.type}</div>
-                    <div className="mt-2 inline-flex items-center gap-1.5">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-                      <span className="text-xs text-green-600 font-medium">{partner.status}</span>
-                    </div>
+          {/* ENHANCED: Bento Grid Layout */}
+          <ScrollReveal delay={100}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {/* Card 1: Instant Settlement & Deep Liquidity */}
+              <div className="bento-card rounded-2xl p-6 md:col-span-1 lg:row-span-2">
+                <div className="mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3">
+                    <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
-                ))}
+                  <h3 className="text-xl font-bold text-white mb-2">Instant Settlement & Deep Liquidity</h3>
+                  <p className="text-sm text-slate-400">
+                    Sub-second settlement execution with institutional-grade liquidity pools. Real-time processing for high-volume transactions.
+                  </p>
+                </div>
+                <div className="mt-4 pt-4 border-t border-slate-700/50">
+                  <div className="flex items-center gap-2 text-xs text-slate-400">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                    <span>24/7 availability</span>
+                  </div>
+                </div>
               </div>
+
+              {/* Card 2: Multi-Currency Rail */}
+              <div className="bento-card rounded-2xl p-6 md:col-span-1">
+                <div className="mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-3">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Multi-Currency Rail</h3>
+                  <p className="text-sm text-slate-400">
+                    Support for EUR, GBP, USD, and 20+ fiat currencies. Institutional needs covered.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 3: Compliance Framework */}
+              <div className="bento-card rounded-2xl p-6 md:col-span-1">
+                <div className="mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-3">
+                    <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Fully Regulated-Ready</h3>
+                  <p className="text-sm text-slate-400">
+                    Automated AML/KYC integration. MiCA-aligned compliance framework. Bank-level security standards.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 4: API Visualization */}
+              <div className="bento-card rounded-2xl p-0 md:col-span-2 lg:col-span-1 lg:row-span-2 overflow-hidden">
+                <APIVisualization />
+              </div>
+
+              {/* Card 5: Dashboard Preview */}
+              <div className="bento-card rounded-2xl p-0 md:col-span-2 lg:col-span-1 lg:row-span-2 overflow-hidden">
+                <DashboardPreview />
+              </div>
+
+              {/* Card 6: Vision & Roadmap */}
+              <div className="bento-card rounded-2xl p-6 md:col-span-2 lg:col-span-2">
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-white mb-3">Expanding Global Reach</h3>
+                  <p className="text-sm text-slate-300 mb-4">
+                    Expanding to <span className="text-emerald-400 font-semibold">50+ fiat jurisdictions</span> by Q4 2026. 
+                    Strategic partnerships with licensed EMIs and payment institutions across Europe, UK, and APAC.
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { label: "EU Jurisdictions", value: "27", icon: "🇪🇺" },
+                      { label: "UK & APAC", value: "15+", icon: "🌏" },
+                      { label: "Security Standards", value: "Bank-Level", icon: "🔒" },
+                    ].map((item, i) => (
+                      <div key={i} className="bg-slate-800/50 rounded-lg p-3 border border-slate-700/30 text-center">
+                        <div className="text-2xl mb-1">{item.icon}</div>
+                        <div className="text-lg font-bold text-white">{item.value}</div>
+                        <div className="text-xs text-slate-400 mt-1">{item.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* ENHANCED: CTA Buttons */}
+          <ScrollReveal delay={200}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href="#contact"
+                className="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30"
+              >
+                Get API Access
+              </a>
+              <a
+                href="#contact"
+                className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-emerald-500/50 hover:border-emerald-500 text-emerald-400 hover:text-emerald-300 font-semibold rounded-xl transition-all duration-300"
+              >
+                Book a Strategic Demo
+              </a>
             </div>
           </ScrollReveal>
         </Container>
