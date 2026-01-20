@@ -52,7 +52,8 @@ function SectionTitle({
   return (
     <div className="space-y-3">
       {overline ? <Pill>{overline}</Pill> : null}
-      <h2 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">{title}</h2>
+      {/* ENHANCED: Improved typography with better letter-spacing */}
+      <h2 className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl" style={{ letterSpacing: '-0.02em' }}>{title}</h2>
       {subtitle ? (
         <p className="max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">{subtitle}</p>
       ) : null}
@@ -218,8 +219,9 @@ function VisualGap() {
 }
 
 function VisualHowItWorks() {
+  // ENHANCED: Glassmorphism effect
   return (
-    <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-slate-50">
+    <div className="mt-6 overflow-hidden rounded-2xl glassmorphism-premium bg-gradient-to-b from-white/80 to-slate-50/80 backdrop-blur-xl">
       <div className="p-6">
         <div className="mb-4 flex flex-wrap gap-2">
           <Pill>RFQ</Pill>
@@ -417,8 +419,9 @@ function VisualPartners() {
     { x: 660, y: 140, title: "Exchanges & Brokers", sub: "Regulated EU settlement" },
   ];
 
+  // ENHANCED: Glassmorphism effect
   return (
-    <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="mt-6 rounded-2xl glassmorphism-premium bg-white/80 backdrop-blur-xl p-6 shadow-lg">
       <div className="mb-4 flex flex-wrap gap-2">
         <Pill>Partner-ready</Pill>
         <Pill>API-first</Pill>
@@ -526,9 +529,10 @@ export default function BlockdeskLanding() {
               <a href="#partners" className="text-sm text-slate-600 hover:text-slate-900">
                 Partners
               </a>
+              {/* ENHANCED: Outline button to avoid header overload */}
               <a
                 href="#contact"
-                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+                className="rounded-xl border border-slate-300 bg-transparent px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition-all duration-300"
               >
                 Request access
               </a>
@@ -552,7 +556,8 @@ export default function BlockdeskLanding() {
                 </div>
 
                 {/* ENHANCED: Added gradient to title */}
-                <h1 className="text-3xl font-semibold tracking-tight md:text-5xl text-gradient">
+                {/* ENHANCED: Premium three-color gradient with improved letter-spacing */}
+                <h1 className="text-3xl font-semibold tracking-tight md:text-5xl text-gradient" style={{ letterSpacing: '-0.03em' }}>
                   The regulated execution & settlement stack for institutional crypto flows in Europe.
                 </h1>
 
@@ -569,21 +574,33 @@ export default function BlockdeskLanding() {
                   >
                     Start a strategic conversation
                   </a>
+                  {/* ENHANCED: Fully transparent secondary button with thin border */}
                   <a
                     href="#how"
-                    className="inline-flex items-center justify-center rounded-xl border border-green-500/50 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-green-500/10 transition-all duration-300"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/30 transition-all duration-300"
                   >
                     See how it works
                   </a>
                 </div>
 
-                {/* ENHANCED: Status badge with improved styling */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 backdrop-blur-sm">
+                {/* ENHANCED: Status badge with floating pulse animation */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 backdrop-blur-sm float-pulse">
                   <div className="relative">
                     <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
-                    <div className="relative w-2 h-2 rounded-full bg-green-500 glow-green-soft"></div>
+                    <div className="relative w-2 h-2 rounded-full bg-green-500 glow-pulse"></div>
                   </div>
                   <span className="text-xs font-medium text-green-400">14 Active Institutional Clients Integrated</span>
+                </div>
+
+                {/* ENHANCED: MiCA Compliance indicator */}
+                <div className="inline-flex items-center gap-2 rounded-lg border border-green-500/20 bg-green-500/5 px-3 py-1.5 backdrop-blur-sm">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                    <span className="text-xs font-medium text-green-400">MiCA Compliance:</span>
+                  </div>
+                  <span className="text-xs text-slate-300">Phase 1 Active</span>
+                  <span className="text-xs text-slate-500">/</span>
+                  <span className="text-xs text-slate-400">Phase 2 Ready</span>
                 </div>
 
                 <p className="text-xs text-slate-400">
@@ -691,6 +708,36 @@ export default function BlockdeskLanding() {
           <ScrollReveal delay={100}>
             <VisualFiatLayerRoadmap />
           </ScrollReveal>
+
+          {/* ENHANCED: EMI Partners showcase */}
+          <ScrollReveal delay={200}>
+            <div className="mt-8 rounded-2xl glassmorphism-premium bg-white/60 backdrop-blur-xl p-8 border border-white/20">
+              <div className="mb-4 flex items-center gap-2">
+                <div className="w-1 h-6 bg-green-500 rounded-full"></div>
+                <h3 className="text-lg font-bold text-slate-900">EMI Partnership Infrastructure</h3>
+              </div>
+              <p className="text-sm text-slate-600 mb-6">
+                Real banking rails through strategic EMI partnerships, ensuring compliant fiat settlement across Europe.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { name: "Licensed EMI", type: "EU Authorized", status: "Active" },
+                  { name: "SEPA Integration", type: "Direct Rails", status: "Active" },
+                  { name: "IBAN Settlement", type: "Bank-Grade", status: "Active" },
+                  { name: "Compliance Layer", type: "MiCA-Aligned", status: "Ready" },
+                ].map((partner, i) => (
+                  <div key={i} className="rounded-xl border border-slate-200/50 bg-white/40 p-4 backdrop-blur-sm hover:bg-white/60 transition-all duration-300">
+                    <div className="text-sm font-semibold text-slate-900">{partner.name}</div>
+                    <div className="text-xs text-slate-600 mt-1">{partner.type}</div>
+                    <div className="mt-2 inline-flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                      <span className="text-xs text-green-600 font-medium">{partner.status}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
         </Container>
       </section>
 
@@ -722,6 +769,84 @@ export default function BlockdeskLanding() {
           </ScrollReveal>
           <ScrollReveal delay={100}>
             <VisualPartners />
+          </ScrollReveal>
+        </Container>
+      </section>
+
+      {/* Current Milestone - ENHANCED: Extracted from diagram with icons */}
+      <section className="py-14 md:py-20 bg-slate-50" id="milestones">
+        <Container>
+          <ScrollReveal>
+            <SectionTitle
+              overline="Current Milestone"
+              title="Execution progress aligned with MiCA market timing."
+              subtitle="Structured development milestones showing our path from architecture to implementation."
+            />
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
+            <div className="mt-6 grid gap-4 md:grid-cols-4">
+              {[
+                { 
+                  icon: "⚙️", 
+                  title: "Architecture Defined", 
+                  desc: "Core modules and interfaces mapped.",
+                  status: "completed"
+                },
+                { 
+                  icon: "📋", 
+                  title: "Regulatory Pathways", 
+                  desc: "Jurisdictions and compliance route clarified.",
+                  status: "completed"
+                },
+                { 
+                  icon: "💬", 
+                  title: "Partner Discussions", 
+                  desc: "EMI, banking and liquidity dialogues active.",
+                  status: "active"
+                },
+                { 
+                  icon: "⏱️", 
+                  title: "Execution aligned with MiCA", 
+                  desc: "Execution plan aligned with market window.",
+                  status: "ready"
+                },
+              ].map((milestone, i) => (
+                <div
+                  key={i}
+                  className={`group rounded-2xl glassmorphism-premium bg-white/60 backdrop-blur-xl p-6 border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+                    milestone.status === 'completed' 
+                      ? 'border-green-500/30 bg-green-50/30' 
+                      : milestone.status === 'active'
+                      ? 'border-blue-500/30 bg-blue-50/30'
+                      : 'border-slate-200/50'
+                  }`}
+                >
+                  <div className="mb-3 text-3xl">{milestone.icon}</div>
+                  <div className="text-sm font-bold text-slate-900 mb-2">{milestone.title}</div>
+                  <div className="text-xs text-slate-600 mb-3">{milestone.desc}</div>
+                  <div className="flex items-center gap-2">
+                    {milestone.status === 'completed' && (
+                      <>
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                        <span className="text-xs text-green-600 font-medium">Completed</span>
+                      </>
+                    )}
+                    {milestone.status === 'active' && (
+                      <>
+                        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                        <span className="text-xs text-blue-600 font-medium">Active</span>
+                      </>
+                    )}
+                    {milestone.status === 'ready' && (
+                      <>
+                        <div className="w-2 h-2 rounded-full bg-slate-400"></div>
+                        <span className="text-xs text-slate-500 font-medium">Ready</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </ScrollReveal>
         </Container>
       </section>
