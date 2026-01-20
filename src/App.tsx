@@ -117,6 +117,156 @@ function VisualMarketShift() {
   );
 }
 
+function VisualPlatformOverview() {
+  return (
+    <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 p-8 shadow-lg">
+      <div className="mb-6 flex flex-wrap gap-2">
+        <Pill>Platform Overview</Pill>
+        <Pill>MiCA-Native</Pill>
+        <Pill>Infrastructure</Pill>
+      </div>
+
+      <svg viewBox="0 0 1000 600" className="h-auto w-full" role="img" aria-label="Platform overview">
+        <defs>
+          <linearGradient id="glow1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#3b82f6" stopOpacity="0.3" />
+            <stop offset="1" stopColor="#8b5cf6" stopOpacity="0.2" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Market Context - Left */}
+        <rect x="20" y="80" width="200" height="180" rx="16" fill="url(#glow1)" stroke="#60a5fa" strokeWidth="2" opacity="0.8" />
+        <text x="40" y="115" fontSize="16" fill="#e0e7ff" fontWeight="700">
+          Market Context
+        </text>
+        <text x="40" y="145" fontSize="13" fill="#cbd5e1">
+          • MiCA Regulation
+        </text>
+        <text x="40" y="170" fontSize="13" fill="#cbd5e1">
+          • Institutional Demand
+        </text>
+        <text x="40" y="195" fontSize="13" fill="#cbd5e1">
+          • Shift Towards Compliance
+        </text>
+        <text x="40" y="220" fontSize="13" fill="#cbd5e1">
+          • Settlement Certainty
+        </text>
+
+        {/* Arrow from Market Context to Solution */}
+        <path d="M220 170 L340 250" stroke="#60a5fa" strokeWidth="3" fill="none" filter="url(#glow)" />
+        <path d="M340 250 l-12 -8 v16 z" fill="#60a5fa" />
+
+        {/* Solution - Central Circle */}
+        <circle cx="500" cy="250" r="120" fill="url(#glow1)" stroke="#60a5fa" strokeWidth="3" opacity="0.9" filter="url(#glow)" />
+        <text x="500" y="200" fontSize="18" fill="#e0e7ff" fontWeight="800" textAnchor="middle">
+          Solution
+        </text>
+        
+        {/* RFQ OTC Execution - Top Left */}
+        <rect x="420" y="180" width="80" height="60" rx="8" fill="#1e40af" opacity="0.6" stroke="#60a5fa" />
+        <text x="460" y="205" fontSize="11" fill="#e0e7ff" fontWeight="600" textAnchor="middle">
+          RFQ OTC
+        </text>
+        <text x="460" y="225" fontSize="11" fill="#e0e7ff" textAnchor="middle">
+          Execution
+        </text>
+
+        {/* Crypto↔Fiat Settlement - Top Right */}
+        <rect x="500" y="180" width="80" height="60" rx="8" fill="#1e40af" opacity="0.6" stroke="#60a5fa" />
+        <text x="540" y="205" fontSize="11" fill="#e0e7ff" fontWeight="600" textAnchor="middle">
+          Crypto↔Fiat
+        </text>
+        <text x="540" y="225" fontSize="11" fill="#e0e7ff" textAnchor="middle">
+          Settlement
+        </text>
+
+        {/* Institutional Liquidity - Bottom Left */}
+        <rect x="420" y="250" width="80" height="60" rx="8" fill="#1e40af" opacity="0.6" stroke="#60a5fa" />
+        <text x="460" y="275" fontSize="11" fill="#e0e7ff" fontWeight="600" textAnchor="middle">
+          Institutional
+        </text>
+        <text x="460" y="295" fontSize="11" fill="#e0e7ff" textAnchor="middle">
+          Liquidity
+        </text>
+
+        {/* Compliance & Reporting - Bottom Right */}
+        <rect x="500" y="250" width="80" height="60" rx="8" fill="#1e40af" opacity="0.6" stroke="#60a5fa" />
+        <text x="540" y="275" fontSize="11" fill="#e0e7ff" fontWeight="600" textAnchor="middle">
+          Compliance
+        </text>
+        <text x="540" y="295" fontSize="11" fill="#e0e7ff" textAnchor="middle">
+          & Reporting
+        </text>
+
+        {/* Arrow from Solution to Strategic Partners */}
+        <path d="M620 250 L780 170" stroke="#60a5fa" strokeWidth="3" fill="none" filter="url(#glow)" />
+        <path d="M780 170 l-12 -8 v16 z" fill="#60a5fa" />
+
+        {/* Strategic Partners - Right */}
+        <rect x="780" y="80" width="200" height="180" rx="16" fill="url(#glow1)" stroke="#60a5fa" strokeWidth="2" opacity="0.8" />
+        <text x="800" y="115" fontSize="16" fill="#e0e7ff" fontWeight="700">
+          Strategic Partners
+        </text>
+        <text x="800" y="145" fontSize="13" fill="#cbd5e1">
+          • Banks
+        </text>
+        <text x="800" y="170" fontSize="13" fill="#cbd5e1">
+          • PSP & Fintech
+        </text>
+        <text x="800" y="195" fontSize="13" fill="#cbd5e1">
+          • Exchanges & Brokers
+        </text>
+        <text x="800" y="220" fontSize="13" fill="#cbd5e1">
+          • EMIs
+        </text>
+
+        {/* Fiat Settlement Layer - Bottom Center */}
+        <rect x="300" y="380" width="400" height="100" rx="20" fill="#1e3a8a" opacity="0.7" stroke="#60a5fa" strokeWidth="2" filter="url(#glow)" />
+        <text x="500" y="415" fontSize="18" fill="#e0e7ff" fontWeight="800" textAnchor="middle">
+          Fiat Settlement Layer
+        </text>
+        <text x="350" y="445" fontSize="13" fill="#cbd5e1">
+          EMI Partnership
+        </text>
+        <text x="600" y="445" fontSize="13" fill="#cbd5e1">
+          Internal Integration
+        </text>
+
+        {/* Foundational Elements - Bottom */}
+        {[
+          { x: 50, title: "Architecture", sub: "Defined" },
+          { x: 250, title: "Regulatory", sub: "Pathways" },
+          { x: 450, title: "Partner", sub: "Discussions" },
+          { x: 650, title: "Execution", sub: "MiCA-aligned" },
+        ].map((item, i) => (
+          <g key={i}>
+            <polygon
+              points={`${item.x},500 ${item.x + 80},485 ${item.x + 160},500 ${item.x + 80},515`}
+              fill="#1e40af"
+              opacity="0.6"
+              stroke="#60a5fa"
+              strokeWidth="2"
+            />
+            <text x={item.x + 80} y="495" fontSize="12" fill="#e0e7ff" fontWeight="600" textAnchor="middle">
+              {item.title}
+            </text>
+            <text x={item.x + 80} y="510" fontSize="11" fill="#cbd5e1" textAnchor="middle">
+              {item.sub}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 function VisualGap() {
   const cols = [
     { x: 20, title: "Retrofitted Compliance", items: ["Not MiCA-native", "Patchwork controls"] },
@@ -534,6 +684,18 @@ export default function BlockdeskLanding() {
           </div>
 
           <VisualMarketShift />
+        </Container>
+      </section>
+
+      {/* Platform Overview */}
+      <section className="py-14 md:py-20" id="overview">
+        <Container>
+          <SectionTitle
+            overline="Platform Overview"
+            title="MiCA-Native OTC & Settlement Platform for Europe"
+            subtitle="A comprehensive infrastructure solution connecting market context, strategic partners, and foundational elements through a unified settlement layer."
+          />
+          <VisualPlatformOverview />
         </Container>
       </section>
 
