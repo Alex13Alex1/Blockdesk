@@ -1,0 +1,4 @@
+node_modules/
+visualization.json
+.env
+*.log
